@@ -1,0 +1,15 @@
+
+modules:
+    campaignchain-social-media-schedule:
+        display_name: Post identical content on social media
+        description: Schedule the same content to be posted on various social media channels.
+        routes: 
+            new: campaignchain_activity_social_media_schedule_new
+            edit: campaignchain_activity_social_media_schedule_edit
+            edit_modal: campaignchain_activity_social_media_schedule_edit_modal
+            edit_api: campaignchain_activity_social_media_schedule_edit_api
+            read: campaignchain_activity_social_media_schedule_read
+        hooks:
+            default:
+                campaignchain-due: true
+                campaignchain-assignee: true

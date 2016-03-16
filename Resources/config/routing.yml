@@ -1,0 +1,24 @@
+# Please add the routes for your module here
+campaignchain_activity_social_media_schedule_new:
+    pattern: /activity/social-media/schedule/new
+    defaults: { _controller: campaignchain.activity.controller.campaignchain.social_media.schedule:newAction }
+
+campaignchain_activity_social_media_schedule_edit:
+    pattern: /activity/social-media/schedule/{id}/edit
+    defaults: { _controller: campaignchain.activity.controller.campaignchain.social_media.schedule:editAction }
+
+campaignchain_activity_social_media_schedule_edit_modal:
+    pattern: /modal/activity/social-media/schedule/{id}/edit
+    defaults: { _controller: campaignchain.activity.controller.campaignchain.social_media.schedule:editModalAction }
+
+campaignchain_activity_social_media_schedule_edit_api:
+    pattern: /api/private/activity/social-media/schedule/byactivity/{id}/edit
+    defaults: { _controller: campaignchain.activity.controller.campaignchain.social_media.schedule:editApiAction }
+    options:
+        expose: true
+    
+campaignchain_activity_social_media_schedule_read:
+    pattern: /activity/social-media/schedule/{id}
+    defaults: { _controller: campaignchain.activity.controller.campaignchain.social_media.schedule:readAction }
+
+

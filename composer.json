@@ -1,0 +1,34 @@
+{
+    "name": "campaignchain/activity-social-media",
+    "description": "Schedule the same content to be posted on various social media channels.",
+    "keywords": ["campaignchain"],
+    "type": "campaignchain-activity",
+    "license": "Apache-2.0",
+    "homepage": "http://www.campaignchain.com",
+    "authors": [
+        {
+            "name": "CampaignChain, Inc.",
+            "email": "info@campaignchain.com"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "psr-4": { "CampaignChain\\Activity\\SocialMediaBundle\\": "" }
+    },
+    "extra": {
+        "campaignchain": {
+            "kernel": {
+                "classes": [
+                    "CampaignChain\\Activity\\SocialMediaBundle\\CampaignChainActivitySocialMediaBundle"
+                ],
+                "routing":
+                {
+                    "name": "campaignchain_activity_social_media",
+                    "resource": "@CampaignChainActivitySocialMediaBundle/Resources/config/routing.yml",
+                    "prefix": "/"
+                }
+            }
+        }
+    }
+}

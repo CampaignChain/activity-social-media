@@ -1,0 +1,28 @@
+parameters:
+# Parameters for the CampaignChain Activity modules in this Symfony bundle
+    campaignchain.activity.campaignchain.social_media.schedule:
+        bundle_name: "campaignchain/activity-social-media"
+        module_identifier: "campaignchain-social-media-schedule"
+        equals_operation: true
+        operations:
+            - %campaignchain.operation.campaignchain.social_media.schedule%
+        handler: "campaignchain.activity.controller.handler.campaignchain.social_media.schedule"
+
+services:
+    # The Symfony service evoking the default controller of the CampaignChain
+    # core package
+    campaignchain.activity.controller.campaignchain.social_media.schedule:
+        class: CampaignChain\CoreBundle\Controller\Module\ActivityModuleController
+        calls:
+            - [setContainer, ["@service_container"]]
+            - [setParameters, ["%campaignchain.activity.campaignchain.social_media.schedule%"]]
+    # The CampaignChain controller handler where the Activity's GUI and data
+    # is being processed.
+    campaignchain.activity.controller.handler.campaignchain.social_media.schedule:
+        class: CampaignChain\Activity\SocialMediaBundle\Controller\SocialMediaScheduleHandler
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@session"
+            - "@templating"
+            - "@campaignchain.operation.social_media.schedule"
+            - "@campaignchain.job.operation.campaignchain.social_media.schedule"
