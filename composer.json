@@ -12,6 +12,7 @@
         }
     ],
     "require": {
+        "campaignchain/operation-social-media": "dev-master"
     },
     "autoload": {
         "psr-4": { "CampaignChain\\Activity\\SocialMediaBundle\\": "" }
