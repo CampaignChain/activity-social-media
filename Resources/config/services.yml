@@ -21,7 +21,7 @@ services:
     campaignchain.activity.controller.handler.campaignchain.social_media.schedule:
         class: CampaignChain\Activity\SocialMediaBundle\Controller\SocialMediaScheduleHandler
         arguments:
-            - "@doctrine.orm.entity_manager"
+            - "@doctrine"
             - "@session"
             - "@templating"
             - "@campaignchain.operation.social_media.schedule"
