@@ -13,6 +13,7 @@ use CampaignChain\CoreBundle\Entity\Operation;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\HttpFoundation\Session\Session;
+use CampaignChain\CoreBundle\Util\SchedulerUtil;
 
 /**
  * Class SocialMediaScheduleHandler
@@ -26,12 +27,16 @@ class SocialMediaScheduleHandler extends AbstractActivityHandler
     protected $contentService;
     protected $job;
 
+    /** @var SchedulerUtil */
+    protected $schedulerUtil;
+
     public function __construct(
         ManagerRegistry $managerRegistry,
         Session $session,
         TwigEngine $templating,
         SocialMediaScheduleService $contentService,
-        SocialMediaSchedule $job
+        SocialMediaSchedule $job,
+        SchedulerUtil $schedulerUtil
     )
     {
         $this->em = $managerRegistry->getManager();
@@ -39,6 +44,7 @@ class SocialMediaScheduleHandler extends AbstractActivityHandler
         $this->templating = $templating;
         $this->contentService = $contentService;
         $this->job = $job;
+        $this->schedulerUtil = $schedulerUtil;
     }
 
     /**
@@ -228,10 +234,10 @@ class SocialMediaScheduleHandler extends AbstractActivityHandler
      * @param $content The Activity's content object.
      * @return null
      */
-    public function postPersistNewEvent(Operation $operation, Form $form, $content = null)
+    public function postPersistNewEvent(Operation $operation, $content = null)
     {
         // Content to be published immediately?
-        $this->publishNow($operation, $form);
+        $this->publishNow($operation);
     }
 
     /**
@@ -260,10 +266,10 @@ class SocialMediaScheduleHandler extends AbstractActivityHandler
      * @param $content The Activity's content object.
      * @return null
      */
-    public function postPersistEditEvent(Operation $operation, Form $form, $content = null)
+    public function postPersistEditEvent(Operation $operation, $content = null)
     {
         // Content to be published immediately?
-        $this->publishNow($operation, $form);
+        $this->publishNow($operation);
     }
 
     /**
@@ -337,9 +343,9 @@ class SocialMediaScheduleHandler extends AbstractActivityHandler
         return true;
     }
 
-    private function publishNow(Operation $operation, Form $form)
+    private function publishNow(Operation $operation)
     {
-        if ($form->get('campaignchain_hook_campaignchain_due')->has('execution_choice') && $form->get('campaignchain_hook_campaignchain_due')->get('execution_choice')->getData() == 'now') {
+        if ($this->schedulerUtil->isDueNow($operation->getStartDate())) {
             $this->job->execute($operation->getId());
             $content = $this->contentService->getSocialMediaScheduleByOperation($operation);
             foreach($content->getLocations() as $location){

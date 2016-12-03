@@ -26,3 +26,4 @@ services:
             - "@templating"
             - "@campaignchain.operation.social_media.schedule"
             - "@campaignchain.job.operation.campaignchain.social_media.schedule"
+            - "@campaignchain.core.util.scheduler"
