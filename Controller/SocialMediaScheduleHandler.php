@@ -198,16 +198,12 @@ class SocialMediaScheduleHandler extends AbstractActivityHandler
     }
 
     /**
-     * Overwrite this method to define how the Content is supposed to be
-     * displayed.
-     *
-     * Called in these views:
-     * - read
-     *
      * @param Operation $operation
-     * @return mixed
+     * @param bool $isModal Modal view yes or no?
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
-    public function readAction(Operation $operation)
+    public function readAction(Operation $operation, $isModal = false)
     {
     }
 
